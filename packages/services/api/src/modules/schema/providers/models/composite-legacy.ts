@@ -93,6 +93,8 @@ export class CompositeLegacyModel {
     if (serviceNameCheck.status === 'failed') {
       return {
         conclusion: SchemaCheckConclusion.Failure,
+        // Do we want to use this new "warning" field to let users know they should upgrade to new model?
+        warnings: [],
         reasons: [
           {
             code: CheckFailureReasonCode.MissingServiceName,
@@ -110,7 +112,7 @@ export class CompositeLegacyModel {
     if (checksumCheck.status === 'completed' && checksumCheck.result === 'unchanged') {
       return {
         conclusion: SchemaCheckConclusion.Success,
-        state: { initial, changes: null },
+        state: { initial, changes: null, warnings: null },
       };
     }
 
@@ -150,6 +152,7 @@ export class CompositeLegacyModel {
 
       return {
         conclusion: SchemaCheckConclusion.Failure,
+        warnings: [],
         reasons,
       };
     }
@@ -159,6 +162,7 @@ export class CompositeLegacyModel {
       state: {
         initial,
         changes: diffCheck.result?.changes ?? null,
+        warnings: null,
       },
     };
   }

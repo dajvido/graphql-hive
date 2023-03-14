@@ -3,6 +3,7 @@ import {
   ProjectAccessScope,
   ProjectType,
   RegistryModel,
+  SchemaPolicyInput,
   TargetAccessScope,
 } from '@app/gql/graphql';
 import { authenticate, userEmail } from './auth';
@@ -34,6 +35,8 @@ import {
   updateRegistryModel,
   updateSchemaVersionStatus,
 } from './flow';
+import { execute } from './graphql';
+import { UpdateSchemaPolicyForOrganization, UpdateSchemaPolicyForProject } from './schema-policy';
 import { collect, CollectedOperation } from './usage';
 import { generateUnique } from './utils';
 
@@ -59,6 +62,21 @@ export function initSeed() {
 
           return {
             organization,
+            async setOrganizationSchemaPolicy(policy: SchemaPolicyInput, allowOverrides: boolean) {
+              const result = await execute({
+                document: UpdateSchemaPolicyForOrganization,
+                variables: {
+                  allowOverrides,
+                  selector: {
+                    organization: organization.cleanId,
+                  },
+                  policy,
+                },
+                authToken: ownerToken,
+              }).then(r => r.expectNoGraphQLErrors());
+
+              return result.updateSchemaPolicyForOrganization;
+            },
             async fetchOrganizationInfo() {
               const result = await getOrganization(organization.cleanId, ownerToken).then(r =>
                 r.expectNoGraphQLErrors(),
@@ -129,6 +147,21 @@ export function initSeed() {
                 project,
                 targets,
                 target,
+                async setProjectSchemaPolicy(policy: SchemaPolicyInput) {
+                  const result = await execute({
+                    document: UpdateSchemaPolicyForProject,
+                    variables: {
+                      selector: {
+                        organization: organization.cleanId,
+                        project: project.cleanId,
+                      },
+                      policy,
+                    },
+                    authToken: ownerToken,
+                  }).then(r => r.expectNoGraphQLErrors());
+
+                  return result.updateSchemaPolicyForProject;
+                },
                 async removeTokens(tokenIds: string[]) {
                   return await deleteTokens(
                     {

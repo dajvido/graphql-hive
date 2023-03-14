@@ -41,6 +41,8 @@ const config = {
             '../shared/mappers#SchemaChangeConnection as SchemaChangeConnectionMapper',
           SchemaErrorConnection:
             '../shared/mappers#SchemaErrorConnection as SchemaErrorConnectionMapper',
+          SchemaWarningConnection:
+            '../shared/mappers#SchemaWarningConnection as SchemaWarningConnectionMapper',
           OrganizationConnection:
             '../shared/mappers#OrganizationConnection as OrganizationConnectionMapper',
           UserConnection: '../shared/mappers#UserConnection as UserConnectionMapper',
@@ -106,6 +108,8 @@ const config = {
             '../shared/entities#OrganizationInvitation as OrganizationInvitationMapper',
           OIDCIntegration: '../shared/entities#OIDCIntegration as OIDCIntegrationMapper',
           User: '../shared/entities#User as UserMapper',
+          SchemaPolicy: '../shared/entities#SchemaPolicy as SchemaPolicyMapper',
+          SchemaPolicyRule: '../shared/entities#SchemaPolicyAvailableRuleObject',
         },
       },
     },
@@ -121,6 +125,7 @@ const config = {
         scalars: {
           DateTime: 'string',
           SafeInt: 'number',
+          JSONSchemaObject: 'json-schema-typed#JSONSchema',
         },
       },
     },
@@ -133,6 +138,13 @@ const config = {
         '!./packages/web/app/pages/api/github/setup-callback.ts',
       ],
       preset: 'client',
+      config: {
+        scalars: {
+          DateTime: 'string',
+          SafeInt: 'number',
+          JSONSchemaObject: 'json-schema-typed#JSONSchema',
+        },
+      },
       plugins: [],
     },
     // CLI

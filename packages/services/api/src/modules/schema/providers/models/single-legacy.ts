@@ -78,6 +78,7 @@ export class SingleLegacyModel {
         conclusion: SchemaCheckConclusion.Success,
         state: {
           changes: null,
+          warnings: null,
           initial,
         },
       };
@@ -121,6 +122,7 @@ export class SingleLegacyModel {
 
       return {
         conclusion: SchemaCheckConclusion.Failure,
+        warnings: [],
         reasons,
       };
     }
@@ -129,6 +131,7 @@ export class SingleLegacyModel {
       conclusion: SchemaCheckConclusion.Success,
       state: {
         changes: diffCheck.result?.changes ?? null,
+        warnings: null,
         initial,
       },
     };

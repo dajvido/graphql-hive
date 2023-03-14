@@ -737,6 +737,7 @@ export const resolvers: SchemaModule.Resolvers = {
   },
   SchemaChangeConnection: createConnection(),
   SchemaErrorConnection: createConnection(),
+  SchemaWarningConnection: createConnection(),
   SchemaCheckSuccess: {
     __isTypeOf(obj) {
       return obj.valid;

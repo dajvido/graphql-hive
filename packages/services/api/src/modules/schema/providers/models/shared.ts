@@ -1,4 +1,5 @@
 import { PushedCompositeSchema, SingleSchema } from 'packages/services/api/src/shared/entities';
+import type { CheckPolicyResponse } from '@hive/policy';
 import type { SchemaModule } from './../../__generated__/types';
 
 export const SchemaPublishConclusion = {
@@ -58,10 +59,20 @@ export const CheckFailureReasonCode = {
   MissingServiceName: 'MISSING_SERVICE_NAME',
   CompositionFailure: 'COMPOSITION_FAILURE',
   BreakingChanges: 'BREAKING_CHANGES',
+  PolicyInfringement: 'POLICY_INFRINGEMENT',
 } as const;
 
 export type CheckFailureReasonCode =
   (typeof CheckFailureReasonCode)[keyof typeof CheckFailureReasonCode];
+
+export type CheckPolicyResultRecord = CheckPolicyResponse[number] | { message: string };
+export type SchemaCheckWarning = {
+  message: string;
+  source: string;
+
+  line?: number;
+  column?: number;
+};
 
 export type SchemaCheckFailureReason =
   | {
@@ -79,12 +90,17 @@ export type SchemaCheckFailureReason =
         message: string;
       }>;
       changes: SchemaModule.SchemaChange[];
+    }
+  | {
+      code: (typeof CheckFailureReasonCode)['PolicyInfringement'];
+      errors: CheckPolicyResultRecord[];
     };
 
 export type SchemaCheckSuccess = {
   conclusion: (typeof SchemaCheckConclusion)['Success'];
   state: {
     changes: SchemaModule.SchemaChange[] | null;
+    warnings: SchemaCheckWarning[] | null;
     initial: boolean;
   };
 };
@@ -92,6 +108,7 @@ export type SchemaCheckSuccess = {
 export type SchemaCheckFailure = {
   conclusion: (typeof SchemaCheckConclusion)['Failure'];
   reasons: SchemaCheckFailureReason[];
+  warnings: SchemaCheckWarning[] | null;
 };
 
 export type SchemaCheckResult = SchemaCheckFailure | SchemaCheckSuccess;
@@ -228,3 +245,11 @@ export function getReasonByCode<
 }
 
 export const temp = 'temp';
+
+export function formatPolicyMessage(record: CheckPolicyResultRecord): string {
+  if ('ruleId' in record) {
+    return `${record.message} (source: policy-${record.ruleId})`;
+  }
+
+  return record.message;
+}

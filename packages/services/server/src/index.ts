@@ -189,6 +189,9 @@ export async function main() {
       rateLimitService: {
         endpoint: env.hiveServices.rateLimit ? env.hiveServices.rateLimit.endpoint : null,
       },
+      schemaPolicyService: {
+        endpoint: env.hiveServices.schemaPolicy ? env.hiveServices.schemaPolicy.endpoint : null,
+      },
       logger: graphqlLogger,
       storage,
       redis: {

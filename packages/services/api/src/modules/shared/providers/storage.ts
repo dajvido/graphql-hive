@@ -1,4 +1,5 @@
 import { Injectable } from 'graphql-modules';
+import type { PolicyConfigurationObject } from '@hive/policy';
 import type {
   AddAlertChannelInput,
   AddAlertInput,
@@ -19,6 +20,7 @@ import type {
   Project,
   Schema,
   SchemaLog,
+  SchemaPolicy,
   SchemaVersion,
   Target,
   TargetSettings,
@@ -484,6 +486,20 @@ export interface Storage {
       }>;
     }>
   >;
+
+  /** Schema Policies */
+  setSchemaPolicyForOrganization(input: {
+    organizationId: string;
+    policy: PolicyConfigurationObject;
+    allowOverrides: boolean;
+  }): Promise<SchemaPolicy>;
+  setSchemaPolicyForProject(input: {
+    projectId: string;
+    policy: PolicyConfigurationObject;
+  }): Promise<SchemaPolicy>;
+  findInheritedPolicies(selector: ProjectSelector): Promise<SchemaPolicy[]>;
+  getSchemaPolicyForOrganization(organizationId: string): Promise<SchemaPolicy | null>;
+  getSchemaPolicyForProject(projectId: string): Promise<SchemaPolicy | null>;
 }
 
 @Injectable()

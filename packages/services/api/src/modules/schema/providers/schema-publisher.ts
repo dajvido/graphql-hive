@@ -27,10 +27,12 @@ import { CompositeLegacyModel } from './models/composite-legacy';
 import {
   CheckFailureReasonCode,
   DeleteFailureReasonCode,
+  formatPolicyMessage,
   getReasonByCode,
   PublishFailureReasonCode,
   SchemaCheckConclusion,
   SchemaCheckResult,
+  SchemaCheckWarning,
   SchemaDeleteConclusion,
   SchemaPublishConclusion,
   SchemaPublishResult,
@@ -239,11 +241,13 @@ export class SchemaPublisher {
           sha: input.github.commit,
           conclusion: checkResult.conclusion,
           changes: checkResult.state.changes ?? null,
+          warnings: checkResult.state.warnings,
           breakingChanges: null,
           compositionErrors: null,
           errors: null,
         });
       }
+
       return this.githubCheck({
         project,
         target,
@@ -258,6 +262,7 @@ export class SchemaPublisher {
         compositionErrors:
           getReasonByCode(checkResult, CheckFailureReasonCode.CompositionFailure)
             ?.compositionErrors ?? null,
+        warnings: checkResult.warnings ?? [],
         errors: (
           [] as Array<{
             message: string;
@@ -270,6 +275,9 @@ export class SchemaPublisher {
                 },
               ]
             : [],
+          getReasonByCode(checkResult, CheckFailureReasonCode.PolicyInfringement)?.errors.map(
+            e => ({ message: formatPolicyMessage(e) }),
+          ) ?? [],
         ),
       });
     }
@@ -279,6 +287,7 @@ export class SchemaPublisher {
         __typename: 'SchemaCheckSuccess' as const,
         valid: true,
         changes: checkResult.state.changes ?? [],
+        warnings: checkResult.state.warnings ?? [],
         initial: checkResult.state.initial,
       } satisfies Types.ResolversTypes['SchemaCheckSuccess'];
     }
@@ -287,6 +296,7 @@ export class SchemaPublisher {
       __typename: 'SchemaCheckError' as const,
       valid: false,
       changes: getReasonByCode(checkResult, CheckFailureReasonCode.BreakingChanges)?.changes ?? [],
+      warnings: checkResult.warnings ?? [],
       errors: (
         [] as Array<{
           message: string;
@@ -300,6 +310,9 @@ export class SchemaPublisher {
             ]
           : [],
         getReasonByCode(checkResult, CheckFailureReasonCode.BreakingChanges)?.breakingChanges ?? [],
+        getReasonByCode(checkResult, CheckFailureReasonCode.PolicyInfringement)?.errors.map(e => ({
+          message: formatPolicyMessage(e),
+        })) ?? [],
         getReasonByCode(checkResult, CheckFailureReasonCode.CompositionFailure)
           ?.compositionErrors ?? [],
       ),
@@ -834,12 +847,14 @@ export class SchemaPublisher {
     breakingChanges,
     compositionErrors,
     errors,
+    warnings,
   }: {
     project: Project;
     target: Target;
     serviceName: string | null;
     sha: string;
     conclusion: SchemaCheckConclusion;
+    warnings: SchemaCheckWarning[] | null;
     changes: Types.SchemaChange[] | null;
     breakingChanges: Array<{
       message: string;
@@ -878,6 +893,7 @@ export class SchemaPublisher {
         title = `Detected ${total} error${total === 1 ? '' : 's'}`;
         summary = [
           errors ? this.errorsToMarkdown(errors) : null,
+          warnings ? this.warningsToMarkdown(warnings) : null,
           compositionErrors ? this.errorsToMarkdown(compositionErrors) : null,
           breakingChanges ? this.errorsToMarkdown(breakingChanges) : null,
           changes ? this.changesToMarkdown(changes) : null,
@@ -1158,6 +1174,22 @@ export class SchemaPublisher {
 
   private errorsToMarkdown(errors: readonly Types.SchemaError[]): string {
     return ['', ...errors.map(error => `- ${bolderize(error.message)}`)].join('\n');
+  }
+  private warningsToMarkdown(warnings: SchemaCheckWarning[]): string {
+    return [
+      '',
+      ...warnings.map(warning => {
+        const details = [
+          warning.line ? `line: ${warning.line}` : undefined,
+          warning.column ? `column: ${warning.column}` : undefined,
+          warning.source ? `source: ${warning.source}` : undefined,
+        ]
+          .filter(Boolean)
+          .join(', ');
+
+        return `- ${bolderize(warning.message)}${details ? ` (${details})` : ''}`;
+      }),
+    ].join('\n');
   }
 
   private changesToMarkdown(changes: readonly Types.SchemaChange[]): string {
