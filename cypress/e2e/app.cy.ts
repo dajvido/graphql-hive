@@ -41,7 +41,7 @@ it('create organization', () => {
   cy.get('h1').contains('Bubatzbieber');
 });
 
-it.only('oidc login for organization', async () => {
+it('oidc login for organization', () => {
   const organizationAdminUser = getUser();
   cy.visit('/');
   cy.signup(organizationAdminUser);
