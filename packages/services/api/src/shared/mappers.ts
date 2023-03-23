@@ -11,12 +11,8 @@ import type {
   GraphQLSchema,
   GraphQLUnionType,
 } from 'graphql';
-import type {
-  ClientStats,
-  OperationStats,
-  SchemaChange,
-  SchemaError,
-} from '../__generated__/types';
+import { Change } from '@graphql-inspector/core';
+import type { ClientStats, OperationStats, SchemaError } from '../__generated__/types';
 import type {
   ActivityObject,
   DateRange,
@@ -97,7 +93,7 @@ export type GraphQLInputObjectTypeMapper = WithSchemaCoordinatesUsage<{
 }>;
 export type GraphQLScalarTypeMapper = WithSchemaCoordinatesUsage<{ entity: GraphQLScalarType }>;
 
-export type SchemaChangeConnection = readonly SchemaChange[];
+export type SchemaChangeConnection = ReadonlyArray<Change>;
 export type SchemaErrorConnection = readonly SchemaError[];
 export type UserConnection = readonly User[];
 export type MemberConnection = readonly Member[];
