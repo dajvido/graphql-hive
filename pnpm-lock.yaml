@@ -1078,7 +1078,7 @@ importers:
       react-select: 5.7.2
       react-string-replace: 1.1.0
       react-toastify: 9.1.2
-      react-virtualized-auto-sizer: 1.0.7
+      react-virtualized-auto-sizer: 1.0.9
       react-window: 1.8.8
       regenerator-runtime: 0.13.11
       rimraf: 4.4.1
@@ -1154,7 +1154,7 @@ importers:
       react-select: 5.7.2_aen5vu2fkbnw3ssyd5drxdxkh4
       react-string-replace: 1.1.0
       react-toastify: 9.1.2_biqbaboplfbrettd7655fr4n2y
-      react-virtualized-auto-sizer: 1.0.7_biqbaboplfbrettd7655fr4n2y
+      react-virtualized-auto-sizer: 1.0.9_biqbaboplfbrettd7655fr4n2y
       react-window: 1.8.8_biqbaboplfbrettd7655fr4n2y
       regenerator-runtime: 0.13.11
       snarkdown: 2.0.0
@@ -25618,9 +25618,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /react-virtualized-auto-sizer/1.0.7_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Mxi6lwOmjwIjC1X4gABXMJcKHsOo0xWl3E3ugOgufB8GJU+MqrtY35aBuvCYv/razQ1Vbp7h1gWJjGjoNN5pmA==}
-    engines: {node: '>8.0.0'}
+  /react-virtualized-auto-sizer/1.0.9_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-O1pYgygCDtFKa9GaKJtX5Ws/QRqxkx2zPlXZqEoRXCMmnNuhoMk5nhXCQqixsc1AcrUzOJwKdzEaDAU9WQ6aJQ==}
     peerDependencies:
       react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
       react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
