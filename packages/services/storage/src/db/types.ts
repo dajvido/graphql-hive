@@ -154,6 +154,14 @@ export interface schema_log {
   target_id: string;
 }
 
+export interface schema_version_changes {
+  change_type: string;
+  id: string;
+  meta: any;
+  schema_version_id: string;
+  severity_level: string;
+}
+
 export interface schema_version_to_log {
   action_id: string;
   version_id: string;
@@ -241,6 +249,7 @@ export interface DBTables {
   persisted_operations: persisted_operations;
   projects: projects;
   schema_log: schema_log;
+  schema_version_changes: schema_version_changes;
   schema_version_to_log: schema_version_to_log;
   schema_versions: schema_versions;
   target_validation: target_validation;
