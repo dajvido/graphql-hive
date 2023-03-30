@@ -113,14 +113,27 @@ export type SchemaVersionConnection = {
   hasMore: boolean;
 };
 type SchemaOnlyObject = Pick<SchemaObject, 'document' | 'raw'>;
-export type SchemaComparePayload =
-  | SchemaCompareResult
-  | {
-      message: string;
+export type SchemaComparePayload = SchemaCompareResult | SchemaCompareError;
+
+export type SchemaCompareError = {
+  error: {
+    message: string;
+  };
+  result?: never;
+};
+
+export type SchemaCompareResult = {
+  error?: never;
+  result: {
+    schemas: readonly [SchemaOnlyObject | null, SchemaOnlyObject];
+    versionSelector: {
+      organization: string;
+      project: string;
+      target: string;
+      version: string;
     };
-export type SchemaCompareResult =
-  | readonly [SchemaOnlyObject, SchemaOnlyObject]
-  | readonly [undefined | null, SchemaOnlyObject];
+  };
+};
 
 export type SingleSchema = SingleSchemaEntity;
 export type PushedCompositeSchema = PushedCompositeSchemaEntity;

@@ -21,6 +21,8 @@ import type {
   GraphQLObjectTypeMapper,
   GraphQLScalarTypeMapper,
   GraphQLUnionTypeMapper,
+  SchemaCompareError,
+  SchemaCompareResult,
 } from '../../shared/mappers';
 import type { WithGraphQLParentInfo, WithSchemaCoordinatesUsage } from '../../shared/mappers';
 import { buildSchema, createConnection } from '../../shared/schema';
@@ -36,6 +38,7 @@ import { SchemaBuildError } from './providers/orchestrators/errors';
 import { ensureSDL, SchemaHelper } from './providers/schema-helper';
 import { SchemaManager } from './providers/schema-manager';
 import { SchemaPublisher } from './providers/schema-publisher';
+import { schemaChangeFromMeta } from './schema-change-from-meta';
 
 const MaybeModel = <T extends z.ZodType>(value: T) => z.union([z.null(), z.undefined(), value]);
 const GraphQLSchemaStringModel = z.string().max(5_000_000).min(0);
@@ -253,63 +256,6 @@ export const resolvers: SchemaModule.Resolvers = {
     },
   },
   Query: {
-    async schemaCompare(_, { selector }, { injector }) {
-      const translator = injector.get(IdTranslator);
-      const schemaManager = injector.get(SchemaManager);
-      const projectManager = injector.get(ProjectManager);
-      const helper = injector.get(SchemaHelper);
-
-      const [organizationId, projectId, targetId] = await Promise.all([
-        translator.translateOrganizationId(selector),
-        translator.translateProjectId(selector),
-        translator.translateTargetId(selector),
-      ]);
-
-      const project = await projectManager.getProject({
-        organization: organizationId,
-        project: projectId,
-      });
-      const orchestrator = schemaManager.matchOrchestrator(project.type);
-
-      // TODO: collect stats from a period between these two versions
-      const [schemasBefore, schemasAfter] = await Promise.all([
-        injector.get(SchemaManager).getSchemasOfVersion({
-          organization: organizationId,
-          project: projectId,
-          target: targetId,
-          version: selector.before,
-        }),
-        injector.get(SchemaManager).getSchemasOfVersion({
-          organization: organizationId,
-          project: projectId,
-          target: targetId,
-          version: selector.after,
-        }),
-      ]);
-
-      return Promise.all([
-        ensureSDL(
-          orchestrator.composeAndValidate(
-            schemasBefore.map(s => helper.createSchemaObject(s)),
-            project.externalComposition,
-          ),
-        ),
-        ensureSDL(
-          orchestrator.composeAndValidate(
-            schemasAfter.map(s => helper.createSchemaObject(s)),
-            project.externalComposition,
-          ),
-        ),
-      ]).catch(reason => {
-        if (reason instanceof SchemaBuildError) {
-          return Promise.resolve({
-            message: reason.message,
-          });
-        }
-
-        return Promise.reject(reason);
-      });
-    },
     async schemaCompareToPrevious(_, { selector }, { injector }) {
       const translator = injector.get(IdTranslator);
       const schemaManager = injector.get(SchemaManager);
@@ -359,15 +305,34 @@ export const resolvers: SchemaModule.Resolvers = {
             project.externalComposition,
           ),
         ),
-      ]).catch(reason => {
-        if (reason instanceof SchemaBuildError) {
-          return Promise.resolve({
-            message: reason.message,
-          });
-        }
+      ])
+        .then(([before, after]) => {
+          const result: SchemaCompareResult = {
+            result: {
+              schemas: [before, after],
+              versionSelector: {
+                organization: organizationId,
+                project: projectId,
+                target: targetId,
+                version: selector.version,
+              },
+            },
+          };
 
-        return Promise.reject(reason);
-      });
+          return result;
+        })
+        .catch(reason => {
+          if (reason instanceof SchemaBuildError) {
+            const result: SchemaCompareError = {
+              error: {
+                message: reason.message,
+              },
+            };
+            return Promise.resolve(result);
+          }
+
+          return Promise.reject(reason);
+        });
     },
     async schemaVersions(_, { selector, after, limit }, { injector }) {
       const translator = injector.get(IdTranslator);
@@ -609,7 +574,7 @@ export const resolvers: SchemaModule.Resolvers = {
       ).raw;
     },
     async baseSchema(version) {
-      return version.base_schema || null;
+      return version.baseSchema || null;
     },
     async explorer(version, { usage }, { injector }) {
       const project = await injector.get(ProjectManager).getProject({
@@ -650,18 +615,37 @@ export const resolvers: SchemaModule.Resolvers = {
     },
   },
   SchemaCompareError: {
-    __isTypeOf(error) {
-      return 'message' in error;
+    __isTypeOf(source: unknown) {
+      return typeof source === 'object' && source != null && 'error' in source;
     },
   },
   SchemaCompareResult: {
-    __isTypeOf(obj) {
-      return Array.isArray(obj);
+    __isTypeOf(source: unknown) {
+      return typeof source === 'object' && source != null && 'result' in source;
     },
-    initial([before]) {
-      return !before;
+    initial(source) {
+      return !!source.result.schemas[0];
     },
-    changes([before, after], _, { injector }) {
+    async changes(source, _, { injector }) {
+      const schemaVersion = await injector
+        .get(SchemaManager)
+        .getSchemaVersion(source.result.versionSelector);
+
+      if (schemaVersion.hasPersistedSchemaChanges === true) {
+        const changes = await injector
+          .get(SchemaManager)
+          .getSchemaChangesForVersion(source.result.versionSelector);
+
+        if (Array.isArray(changes)) {
+          return changes.map(schemaChangeFromMeta);
+        }
+      }
+
+      // LEGACY LAND
+      // If we don't have the stuff in the database we compute it on demand.
+
+      const [before, after] = source.result.schemas;
+
       if (!before) {
         return [];
       }
@@ -687,7 +671,9 @@ export const resolvers: SchemaModule.Resolvers = {
 
       return injector.get(Inspector).diff(previousSchema, currentSchema);
     },
-    diff([before, after]) {
+    diff(source) {
+      const [before, after] = source.result.schemas;
+
       return {
         before: before ? before.raw : '',
         after: after.raw,
@@ -716,14 +702,6 @@ export const resolvers: SchemaModule.Resolvers = {
       return schema.service_url;
     },
   },
-  // DeletedCompositeSchema: {
-  //   __isTypeOf(obj) {
-  //     return obj.kind === 'composite' && obj.action === 'DELETE';
-  //   },
-  //   service(schema) {
-  //     return schema.service_name;
-  //   },
-  // },
   SchemaConnection: createConnection(),
   SchemaVersionConnection: {
     pageInfo(info) {
