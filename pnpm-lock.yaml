@@ -1088,7 +1088,7 @@ importers:
       supertokens-js-override: 0.0.4
       supertokens-node: 13.1.5
       supertokens-web-js: 0.5.0
-      tailwindcss: 3.2.7
+      tailwindcss: 3.3.0
       tailwindcss-radix: 2.8.0
       tslib: 2.5.0
       urql: 3.0.3
@@ -1183,7 +1183,7 @@ importers:
       '@storybook/nextjs': 7.0.0-beta.54_ld2jel3hspngo3u5lti2kgl2sq
       '@storybook/react': 7.0.0-beta.54_biqbaboplfbrettd7655fr4n2y
       '@storybook/testing-library': 0.0.14-next.1
-      '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
+      '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.3.0
       '@types/cookies': 0.7.7
       '@types/dompurify': 3.0.0
       '@types/js-cookie': 3.0.3
@@ -1199,7 +1199,7 @@ importers:
       postcss-loader: 7.1.0_postcss@8.4.21
       rimraf: 4.4.1
       storybook: 7.0.0-beta.54
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.3.0_postcss@8.4.21
       tailwindcss-radix: 2.8.0
 
   packages/web/docs:
@@ -1217,7 +1217,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-icons: 4.8.0
-      tailwindcss: 3.2.7
+      tailwindcss: 3.3.0
     dependencies:
       '@next/env': 13.2.4
       '@radix-ui/react-tooltip': 1.0.5_6ayuu6vm2uqggsikytom4xssc4
@@ -1233,7 +1233,7 @@ importers:
       '@types/react': 18.0.31
       next-sitemap: 4.0.6_jccvrrmb7rb3yyi3af3znueaea
       postcss: 8.4.21
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.3.0_postcss@8.4.21
 
 packages:
 
@@ -10949,12 +10949,12 @@ packages:
       telejson: 7.0.4
     dev: true
 
-  /@storybook/channel-postmessage/7.0.0-rc.9:
-    resolution: {integrity: sha512-iaEwRN4PvIzxzH8dGXKSKVkepC2+70O6MM4Z+zDOyN1Q6p4grYOddM2Olqdb9cf3TaYES5JENPe5ig62JLu2zg==}
+  /@storybook/channel-postmessage/7.0.0-rc.10:
+    resolution: {integrity: sha512-U7jx10NwqXiQRMnsY+Dwl8Lkc7a1zAA6fHHDMxxa1AKE7ISDoRi4dIrWs5BmOgi2IdFo52bexIE9RTOgPTuUew==}
     dependencies:
-      '@storybook/channels': 7.0.0-rc.9
-      '@storybook/client-logger': 7.0.0-rc.9
-      '@storybook/core-events': 7.0.0-rc.9
+      '@storybook/channels': 7.0.0-rc.10
+      '@storybook/client-logger': 7.0.0-rc.10
+      '@storybook/core-events': 7.0.0-rc.10
       '@storybook/global': 5.0.0
       qs: 6.11.0
       telejson: 7.0.4
@@ -10981,8 +10981,8 @@ packages:
     resolution: {integrity: sha512-CXV3koGjshDZvRrQ4Ck44vBbarMVtiFW9MeBrXaCW7/dElKTYEH8WBiGkqHuna9Pio5ZlVDGVzxn9JqN5J6bKA==}
     dev: true
 
-  /@storybook/channels/7.0.0-rc.9:
-    resolution: {integrity: sha512-XqgHzEqAlNG9lfNjYTLepXQNafoD7cUSDSFbZkpOAUlYRsBz0cyhCGyxAWDyH7er8ZJCCIfxsEwZVaMGg9bLFQ==}
+  /@storybook/channels/7.0.0-rc.10:
+    resolution: {integrity: sha512-LNjI2etxaK5hbBHziNbDzK5VajGU0BLcD04CO3LbGRC14hJvDfVnvymJeDbbgT1b7RPUwl/vv/azO1kVHDax/A==}
     dev: true
 
   /@storybook/cli/7.0.0-beta.54:
@@ -11054,8 +11054,8 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/client-logger/7.0.0-rc.9:
-    resolution: {integrity: sha512-ihBDLgfECGXaP54KXMcTLokOXdKryoKSF6UEErJpzb/Foq8g/OQSaklSjx0xdoEt01JT+cJEdQOLAewNK/4fYg==}
+  /@storybook/client-logger/7.0.0-rc.10:
+    resolution: {integrity: sha512-K+3SySLua2tcALuk0Mco/o37bX4CeugA9aQClqDyXmVB+Fh6rg8A+uwiraDPooeq+P8AtMxuFc/dKwRejGicLg==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true
@@ -11160,8 +11160,8 @@ packages:
     resolution: {integrity: sha512-/YDjgPHKqdkbB9+jTv3zKjNDRy0gZnVeFfXyS9jCXj4D0K1pYwzkttHAT/xEu6qFeCI8A8wwEgIh6+0t3xfL9g==}
     dev: true
 
-  /@storybook/core-events/7.0.0-rc.9:
-    resolution: {integrity: sha512-FDEDaaksKJFGeaME1lnxwQr7AQxBFZoPJD8jX9t5hniFtouJ7Pdn8lGDueJME2XNuklT4VZHAUwFVO3WcbxbzA==}
+  /@storybook/core-events/7.0.0-rc.10:
+    resolution: {integrity: sha512-Z4S6H1E5FuG7eiVozqcqNBSADt0kCDZeXlpR/gIOYLmTd/BDIQ2QhLt+G41BbEvck8nRnC7lZ9DXuref8V3pDA==}
     dev: true
 
   /@storybook/core-server/7.0.0-beta.54:
@@ -11312,14 +11312,14 @@ packages:
       '@storybook/preview-api': 7.0.0-beta.54
     dev: true
 
-  /@storybook/instrumenter/7.0.0-rc.9:
-    resolution: {integrity: sha512-Uyq4ZjuEcG7ThZqq4L0YsGX5LnbP85yi25k+1ySkr677eft0VpTp5U37jmyChGkoI03kghVNvM16LTgVuQ83kw==}
+  /@storybook/instrumenter/7.0.0-rc.10:
+    resolution: {integrity: sha512-XaU6pxbcUnGgM7OywPs8E/k3H6Up/mf2kPfrHp9qhztx7ypKsKZi2lfxpOlmORy/s6JZl8kZATDyfgAGmVnbvg==}
     dependencies:
-      '@storybook/channels': 7.0.0-rc.9
-      '@storybook/client-logger': 7.0.0-rc.9
-      '@storybook/core-events': 7.0.0-rc.9
+      '@storybook/channels': 7.0.0-rc.10
+      '@storybook/client-logger': 7.0.0-rc.10
+      '@storybook/core-events': 7.0.0-rc.10
       '@storybook/global': 5.0.0
-      '@storybook/preview-api': 7.0.0-rc.9
+      '@storybook/preview-api': 7.0.0-rc.10
     dev: true
 
   /@storybook/manager-api/7.0.0-beta.54_biqbaboplfbrettd7655fr4n2y:
@@ -11507,16 +11507,16 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /@storybook/preview-api/7.0.0-rc.9:
-    resolution: {integrity: sha512-KcbqKm4Ge0G8iZNzCnIzGKY7ZD4L6140BQexid0t6dDvBRGavkUXvg3IH+nzXFTHW4H9lW3yFY3zbPANjUexXw==}
+  /@storybook/preview-api/7.0.0-rc.10:
+    resolution: {integrity: sha512-3oBm6Che7ctbOLS3TTbuySbLdxA1xqLDgn8AaOadCd4SmCfhxZNor35RO1TlN8S8pQPsGlT9UBWB4xKxhq0e2A==}
     dependencies:
-      '@storybook/channel-postmessage': 7.0.0-rc.9
-      '@storybook/channels': 7.0.0-rc.9
-      '@storybook/client-logger': 7.0.0-rc.9
-      '@storybook/core-events': 7.0.0-rc.9
+      '@storybook/channel-postmessage': 7.0.0-rc.10
+      '@storybook/channels': 7.0.0-rc.10
+      '@storybook/client-logger': 7.0.0-rc.10
+      '@storybook/core-events': 7.0.0-rc.10
       '@storybook/csf': 0.0.2-next.10
       '@storybook/global': 5.0.0
-      '@storybook/types': 7.0.0-rc.9
+      '@storybook/types': 7.0.0-rc.10
       '@types/qs': 6.9.7
       dequal: 2.0.3
       lodash: 4.17.21
@@ -11705,8 +11705,8 @@ packages:
   /@storybook/testing-library/0.0.14-next.1:
     resolution: {integrity: sha512-1CAl40IKIhcPaCC4pYCG0b9IiYNymktfV/jTrX7ctquRY3akaN7f4A1SippVHosksft0M+rQTFE0ccfWW581fw==}
     dependencies:
-      '@storybook/client-logger': 7.0.0-rc.9
-      '@storybook/instrumenter': 7.0.0-rc.9
+      '@storybook/client-logger': 7.0.0-rc.10
+      '@storybook/instrumenter': 7.0.0-rc.10
       '@testing-library/dom': 8.20.0
       '@testing-library/user-event': 13.5.0_yxlyej73nftwmh2fiao7paxmlm
       ts-dedent: 2.2.0
@@ -11748,10 +11748,10 @@ packages:
       file-system-cache: 2.0.2
     dev: true
 
-  /@storybook/types/7.0.0-rc.9:
-    resolution: {integrity: sha512-fnlEM+p1h8KAESKa0g+JK6FC5pwS6rci+vG1TexzMWPyk87bJeqZb7aFhhhd5t7UK5CQnZjka9t8RXD7atXk7A==}
+  /@storybook/types/7.0.0-rc.10:
+    resolution: {integrity: sha512-aKyz4eJaWsywqX8kL2syTL8jGZFildIw/Z5o5S13KZwR+Vdijss2sNoDIAUK5XgSi9vxG/Jd13CS5zTEBaSpMA==}
     dependencies:
-      '@storybook/channels': 7.0.0-rc.9
+      '@storybook/channels': 7.0.0-rc.10
       '@types/babel__core': 7.20.0
       '@types/express': 4.17.14
       file-system-cache: 2.0.2
@@ -11900,12 +11900,12 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
-  /@tailwindcss/line-clamp/0.4.2_tailwindcss@3.2.7:
+  /@tailwindcss/line-clamp/0.4.2_tailwindcss@3.3.0:
     resolution: {integrity: sha512-HFzAQuqYCjyy/SX9sLGB1lroPzmcnWv1FHkIpmypte10hptf4oPUfucryMKovZh2u0uiS9U5Ty3GghWfEJGwVw==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.3.0_postcss@8.4.21
     dev: true
 
   /@tanstack/react-table/8.0.0-beta.8_biqbaboplfbrettd7655fr4n2y:
@@ -12079,7 +12079,7 @@ packages:
       cssnano: 5.1.14_postcss@8.4.21
       postcss: 8.4.21
       postcss-import: 15.0.0_postcss@8.4.21
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.3.0_postcss@8.4.21
     transitivePeerDependencies:
       - ts-node
     dev: true
@@ -13307,14 +13307,6 @@ packages:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       acorn: 8.8.2
-
-  /acorn-node/1.8.2:
-    resolution: {integrity: sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A==}
-    dependencies:
-      acorn: 7.4.1
-      acorn-walk: 7.2.0
-      xtend: 4.0.2
-    dev: true
 
   /acorn-walk/7.2.0:
     resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==}
@@ -16233,10 +16225,6 @@ packages:
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
 
-  /defined/1.0.1:
-    resolution: {integrity: sha512-hsBd2qSVCRE+5PmNdHt1uzyrFu5d3RwmFDKzyNZMFq/EwDNJF7Ee5+D5oEKF0hU6LhtoUF1macFvOe4AskQC1Q==}
-    dev: true
-
   /defu/6.1.2:
     resolution: {integrity: sha512-+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==}
     dev: true
@@ -16324,16 +16312,6 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /detective/5.2.1:
-    resolution: {integrity: sha512-v9XE1zRnz1wRtgurGu0Bs8uHKFSTdteYZNbIPFVhUZ39L/S79ppMpdmVOZAnoz1jfEFodc48n6MX483Xo3t1yw==}
-    engines: {node: '>=0.8.0'}
-    hasBin: true
-    dependencies:
-      acorn-node: 1.8.2
-      defined: 1.0.1
-      minimist: 1.2.8
     dev: true
 
   /dezalgo/1.0.4:
@@ -20909,11 +20887,6 @@ packages:
       cookie: 0.5.0
       process-warning: 1.0.0
       set-cookie-parser: 2.5.1
-
-  /lilconfig/2.0.6:
-    resolution: {integrity: sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==}
-    engines: {node: '>=10'}
-    dev: true
 
   /lilconfig/2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -27306,6 +27279,19 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
+  /sucrase/3.31.0:
+    resolution: {integrity: sha512-6QsHnkqyVEzYcaiHsOKkzOtOgdJcb8i54x6AV2hDwyZcY9ZyykGZVw6L/YN98xC0evwTP6utsWWrKRaa8QlfEQ==}
+    engines: {node: '>=8'}
+    hasBin: true
+    dependencies:
+      commander: 4.1.1
+      glob: 7.1.6
+      lines-and-columns: 1.2.4
+      mz: 2.7.0
+      pirates: 4.0.5
+      ts-interface-checker: 0.1.13
+    dev: true
+
   /supertokens-auth-react/0.31.3_zh4rdguscatxykxktv3lwuw3je:
     resolution: {integrity: sha512-LBMqieKSweYv2+PbzppOwMYT67VW/HfJdb4kS3GTI0emNzwndxxYkRCnFiTroND08C9t3LLdMt5SUxXW+0X8Jw==}
     engines: {node: '>=16.0.0', npm: '>=8'}
@@ -27445,8 +27431,8 @@ packages:
     resolution: {integrity: sha512-1k1UfoIYgVyBl13FKwwoKavjnJ5VEaUClCTAsgz3VLquN4ay/lyaMPzkbqD71sACDs2fRGImytAUlMb4TzOt1A==}
     dev: true
 
-  /tailwindcss/3.2.7_postcss@8.4.21:
-    resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}
+  /tailwindcss/3.3.0_postcss@8.4.21:
+    resolution: {integrity: sha512-hOXlFx+YcklJ8kXiCAfk/FMyr4Pm9ck477G0m/us2344Vuj355IpoEDB5UmGAsSpTBmr+4ZhjzW04JuFXkb/fw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -27455,13 +27441,13 @@ packages:
       arg: 5.0.2
       chokidar: 3.5.3
       color-name: 1.1.4
-      detective: 5.2.1
       didyoumean: 1.2.2
       dlv: 1.1.3
       fast-glob: 3.2.12
       glob-parent: 6.0.2
       is-glob: 4.0.3
-      lilconfig: 2.0.6
+      jiti: 1.17.2
+      lilconfig: 2.1.0
       micromatch: 4.0.5
       normalize-path: 3.0.0
       object-hash: 3.0.0
@@ -27475,6 +27461,7 @@ packages:
       postcss-value-parser: 4.2.0
       quick-lru: 5.1.1
       resolve: 1.22.1
+      sucrase: 3.31.0
     transitivePeerDependencies:
       - ts-node
     dev: true
